@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>学生信息管理</title>
+<title>试卷管理</title>
 <link rel="stylesheet" type="text/css" href="jquery-easyui-1.4.2/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="jquery-easyui-1.4.2/themes/icon.css">
 <script type="text/javascript" src="jquery-easyui-1.4.2/jquery.min.js"></script>
@@ -13,7 +13,7 @@
 <script type="text/javascript">
 	var url;
 	
-	function deleteQuestion(){
+	function deletePaper(){
 		var selectedRows=$("#dg").datagrid('getSelections');
 		if(selectedRows.length==0){
 			$.messager.alert("系统提示","请选择要删除的数据！");
@@ -26,7 +26,7 @@
 		var ids=strIds.join(",");
 		$.messager.confirm("系统提示","您确认要删掉这<font color=red>"+selectedRows.length+"</font>条数据吗？",function(r){
 			if(r){
-				$.post("question!delete",{delIds:ids},function(result){
+				$.post("Paper!delete",{delIds:ids},function(result){
 					if(result.success){
 						$.messager.alert("系统提示","您已成功删除<font color=red>"+result.delNums+"</font>条数据！");
 						$("#dg").datagrid("reload");
@@ -38,25 +38,24 @@
 		});
 	}
 
-	function searchQuestion(){
+	function searchPaper(){
 		$('#dg').datagrid('load',{
-			questions:$('#questions').val(),
-			optionA:$('#optionA').val(),
-			optionB:$('#optionB').val(),
-			optionC:$('#optionC').val(),
-			optionD:$('#optionD').val(),
-			answer:$('#answer').val(),
-			score:$('#score').val(),
+			paperName:$('#paperName').val(),
+			startTime:$('#startTime').val(),
+			durationTime:$('#durationTime').val(),
+			questionCount:$('#questionCount').val(),
+			paperStatus:$('#paperStatus').val(),
+			
 		});
 	}
 	
 	
-	function openQuestionAddDialog(){
-		$("#dlg").dialog("open").dialog("setTitle","添加试题");
-		url="question!save";
+	function openPaperAddDialog(){
+		$("#dlg").dialog("open").dialog("setTitle","添加试卷");
+		url="paper!save";
 	}
 	
-	function saveQuestion(){
+	function savePaper(){
 		$("#fm").form("submit",{
 			url:url,
 			onSubmit:function(){
@@ -77,63 +76,58 @@
 	}
 	
 	function resetValue(){
-		$("#questions").val("");
-		$("#optionA").val("");
-		$("#optionB").val("");
-		$("#optionC").val("");
-		$("#optionD").val("");
-		$("#answer").val("");
-		$("#score").val("");
+		$("#paperName").val("");
+		$("#startTime").val("");
+		$("#durationTime").val("");
+		$("#questionCount").val("");
+		$("#paperStatus").val("");
 	}
 	
-	function closeQuestionDialog(){
+	function closePaperDialog(){
 		$("#dlg").dialog("close");
 		resetValue();
 	}
 	
-	function openQuestionModifyDialog(){
+	function openPaperModifyDialog(){
 		var selectedRows=$("#dg").datagrid('getSelections');
 		if(selectedRows.length!=1){
 			$.messager.alert("系统提示","请选择一条要编辑的数据！");
 			return;
 		}
 		var row=selectedRows[0];
-		$("#dlg").dialog("open").dialog("setTitle","编辑学生信息");
-		//$("#fm").form("load",row);
-		$("#question").val(row.question);
-		$("#optionA").val(row.optionA);
-		$("#optionB").val(row.optionB);
-		$("#optionC").val(row.optionC);
-		$("#optionD").val(row.optionD);
-		$("#answer").val(row.answer);
-		$("#score").val(row.score);
-		url="question!save?questionId="+row.questionId;
+		$("#dlg").dialog("open").dialog("setTitle","编辑试卷信息");
+		
+		$("#paperName").val(row.paperName);
+		$("#startTime").val(row.startTime);
+		$("#durationTime").val(row.durationTime);
+		$("#questionCount").val(row.questionCount);
+		$("#paperStatus").val(row.paperStatus);
+		url="paper!save?paperId="+row.paperId;
 	}
 </script>
 </head>
 <body style="margin: 5px;">
-	<table id="dg" title="试题信息" class="easyui-datagrid" fitColumns="true"
-	 pagination="true" rownumbers="true" url="question" fit="true" toolbar="#tb">
+	<table id="dg" title="试卷信息" class="easyui-datagrid" fitColumns="true"
+	 pagination="true" rownumbers="true" url="testpaper" fit="true" toolbar="#tb">
 		<thead>
 			<tr>
 				<th field="cb" checkbox="true"></th>
-				<th field="questionId" width="50" align="center">编号</th>
-				<th field="questions" width="100" align="center">题目</th>
-				<th field="optionA" width="70" align="center">选项A</th>
-				<th field="optionB" width="70" align="center">选项B</th>
-				<th field="optionC" width="70" align="center">选项C</th>
-				<th field="optionD" width="70" align="center">选项D</th>
-				<th field="answer" width="50" align="center">正确答案</th>
-				<th field="score" width="50" align="center">分值</th>
+				<th field="paperId" width="50" align="center">编号</th>
+				<th field="paperName" width="100" align="center">试卷名称</th>
+				<th field="startTime" width="70" align="center">考试时间</th>
+				<th field="durationTime" width="70" align="center">考试时长</th>
+				<th field="questionCount" width="70" align="center">试题数目</th>
+				<th field="paperStatus" width="70" align="center">试卷状态</th>
 			</tr>
 		</thead>
 	</table>
 	
 	<div id="tb">
 		<div>
-			<a href="javascript:openQuestionAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
-			<a href="javascript:openQuestionModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
-			<a href="javascript:deleteQuestion()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+		<a href="javascript:showPaper()" class="easyui-linkbutton" iconCls="icon-search" plain="true">查看</a>
+			<a href="javascript:openPaperAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
+			<a href="javascript:openPaperModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
+			<a href="javascript:deletePaper()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
 		</div>
 		<!-- <div>&nbsp;试题题目：&nbsp;<input type="text" name="questions" id="question" size="10"/>
 			&nbsp;姓名：&nbsp;<input type="text" name="stuName" id="stuName" size="10"/>
@@ -152,40 +146,32 @@
 		<form id="fm" method="post">
 			<table cellspacing="5px;">
 				<tr>
-					<td>试题题目：</td>
-					<td><input type="text" name="question.questions" id="questions" class="easyui-validatebox" required="true"/></td>
+					<td>试卷名称：</td>
+					<td><input type="text" name="paper.paperName" id="paperName" class="easyui-validatebox" required="true"/></td>
 				</tr>
 				<tr >
-					<td>选项A：</td>
-					<td><input type="text" name="question.optionA" id="optionA" class="easyui-validatebox" required="true"/></td>
+					<td>考试时间：</td>
+					<td><input type="text" name="paper.startTime" id="startTime" class="easyui-validatebox" required="true"/></td>
 				</tr>
 				<tr>
-					<td>选项B：</td>
-					<td><input type="text" name="question.optionB" id="optionB" class="easyui-validatebox" required="true"/></td>
+					<td>考试时长：</td>
+					<td><input type="text" name="paper.durationTime" id="durationTime" class="easyui-validatebox" required="true"/></td>
 				</tr>
 				<tr>	
-					<td>选项C：</td>
-					<td><input type="text" name="question.optionC" id="optionC" class="easyui-validatebox" required="true"/></td>
+					<td>试题数目：</td>
+					<td><input type="text" name="paper.questionCount" id="questionCount" class="easyui-validatebox" required="true"/></td>
 				</tr>
 				<tr>
-					<td>选项D：</td>
-					<td><input type="text" name="question.optionD" id="optionD" class="easyui-validatebox" required="true"/></td>
-				</tr>
-				<tr>		
-					<td>正确答案：</td>
-					<td><input type="text" name="question.answer" id="answer" class="easyui-validatebox" required="true"/></td>
-				</tr>
-				<tr>
-					<td>分值：</td>
-					<td><input type="text" name="question.score" id="score" class="easyui-validatebox" required="true"/></td>
+					<td>试卷状态：</td>
+					<td><input type="text" name="paper.paperStatus" id="paperStatus" class="easyui-validatebox" required="true"/></td>
 				</tr>
 			</table>
 		</form>
 	</div>
 	
 	<div id="dlg-buttons">
-		<a href="javascript:saveQuestion()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
-		<a href="javascript:closeQuestionDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+		<a href="javascript:savePaper()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+		<a href="javascript:closePaperDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
 	</div>
 </body>
 </html>

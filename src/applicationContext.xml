@@ -45,6 +45,7 @@
 				<value>com.dlnu.model.Student</value>
 				<value>com.dlnu.model.Teacher</value>
 				<value>com.dlnu.model.Question</value>
+				<value>com.dlnu.model.TestPaper</value>
 			</list>
 		</property>
 	</bean>
@@ -67,6 +68,7 @@
 			<tx:method name="*Save*" propagation="REQUIRED" />
 			<tx:method name="*Delete" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="*Show" propagation="REQUIRED" />
 			<tx:method name="get*" read-only="true" />
 			<tx:method name="load*" read-only="true" />
 			<tx:method name="find*" read-only="true" />
