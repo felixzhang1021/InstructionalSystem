@@ -10,7 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="grade")
-public class grade {
+public class Grade {
 	private int stuId;
 	private int paperId;
 	private int stuScore;
@@ -61,11 +61,11 @@ public class grade {
 	public void setPaperName(String paperName) {
 		this.paperName = paperName;
 	}
-	public grade() {
+	public Grade() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public grade(int stuId, int paperId, int stuScore) {
+	public Grade(int stuId, int paperId, int stuScore) {
 		super();
 		this.stuId = stuId;
 		this.paperId = paperId;

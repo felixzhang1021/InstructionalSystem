@@ -11,51 +11,43 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.dlnu.dao.PaperDao;
+import com.dlnu.dao.DetailDao;
 import com.dlnu.model.PageBean;
+import com.dlnu.model.PaperDetail;
 import com.dlnu.model.TestPaper;
 import com.dlnu.util.StringUtil;
 @Repository
-public class PaperDaoImpl implements PaperDao{
-	
+public class DetailDaoImpl implements DetailDao{
 	private SessionFactory sessionFactory;
-	public List<TestPaper> paperList(PageBean pageBean, TestPaper paper)
-			throws Exception {
-		List<TestPaper> paperList=null;
-		StringBuffer sb = new StringBuffer("from TestPaper t");
+	public List<PaperDetail> paperDetailList(PageBean pageBean,
+			PaperDetail paperDetail) throws Exception {
+		List<PaperDetail> paperDetailList=null;
 		Session session = this.getSession();
-		Query query = session.createQuery(sb.toString().replaceFirst("and", "where"));
+		Query query = session.createQuery("from TestPaper t, Question q, PaperDetail p where t.paperId=p.paperId and q.questionId = p.questionId and p.paperId=?");
+		query.setInteger(0, paperDetail.getPaperId());
 		if(pageBean!=null){
 			query.setFirstResult(pageBean.getStart());
 			query.setMaxResults(pageBean.getRows());
 		}
-		paperList=(List<TestPaper>)query.list();
-		return paperList;
+		paperDetailList=(List<PaperDetail>)query.list();
+		return paperDetailList;
 	}
 
-	public int paperCount(TestPaper paper) throws Exception {
-		StringBuffer sb = new StringBuffer("select count(*) as total from testpaper t where 1=1");
-		if(StringUtil.isNotEmpty(paper.getPaperName())){
-			sb.append("and t.paperName like '%"+paper.getPaperName()+"%'");
+	public int paperDetailCount(PaperDetail paperDetail) throws Exception {
+		StringBuffer sb = new StringBuffer("select count(*) as total from paperdetail p where 1=1");
+		if(paperDetail.getPaperId()!=-1){
+			sb.append("and p.paperId = '"+paperDetail.getPaperId()+"'");
 		}
 		Session session = this.getSession();
 		Query query = session.createSQLQuery(sb.toString());
 		return ((BigInteger)query.uniqueResult()).intValue();
 	}
 
-	public int paperDelete(String delIds) throws Exception {
+	public int paperDetailSave(PaperDetail paperDetail) throws Exception {
 		Session session=this.getSession();
-		Query query=session.createSQLQuery("delete from testpaper where paperId in("+delIds+")");
-		int count=query.executeUpdate();
-		return count;
-	}
-
-	public int paperSave(TestPaper paper) throws Exception {
-		Session session=this.getSession();
-		session.merge(paper);
+		session.merge(paperDetail);
 		return 1;
 	}
-	
 	@Resource
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory){
@@ -65,6 +57,5 @@ public class PaperDaoImpl implements PaperDao{
 	public Session getSession(){
 		return sessionFactory.getCurrentSession();
 	}
-
 
 }

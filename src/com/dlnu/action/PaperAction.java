@@ -13,7 +13,9 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.context.annotation.Scope;
 
 import com.dlnu.model.PageBean;
+import com.dlnu.model.PaperDetail;
 import com.dlnu.model.TestPaper;
+import com.dlnu.service.PaperDetailService;
 import com.dlnu.service.PaperService;
 import com.dlnu.util.ResponseUtil;
 import com.dlnu.util.StringUtil;
@@ -30,10 +32,18 @@ public class PaperAction extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 	@Resource
 	private PaperService paperService;
+	private PaperDetailService paperDetailService;
 	private TestPaper paper;
+	private PaperDetail paperDetail;
 	private String paperId;
 	private String paperName;
 	private String startTime;
+	public PaperDetailService getPaperDetailService() {
+		return paperDetailService;
+	}
+	public void setPaperDetailService(PaperDetailService paperDetailService) {
+		this.paperDetailService = paperDetailService;
+	}
 	private String durationTime;
 	private String questionCount;
 	public String getQuestionCount() {
@@ -136,7 +146,6 @@ public class PaperAction extends ActionSupport{
 			e.printStackTrace();
 		}
 		return null;
-		
 	}
 	public String delete() throws Exception{
 		try{
@@ -175,5 +184,40 @@ public class PaperAction extends ActionSupport{
 	}
 			return null;
 	}
-	
+	public String show() throws Exception{
+		PageBean pageBean = new PageBean(Integer.parseInt(page), Integer.parseInt(rows));
+		paperDetail = new PaperDetail();
+		if(paperId!=null){
+			System.out.println("$#$#$#$#$#$#$#$#$#$#$#$");
+			paperDetail.setPaperId(Integer.parseInt(paperId));
+		}
+		System.out.println("$#$#$#$#$#$#$#$#$#$#$#$"+paperDetail.getPaperId());
+		try{
+		JSONObject result = new JSONObject();
+		List<PaperDetail> paperDetailList=paperDetailService.paperDetailList(pageBean, paperDetail);
+		JSONArray jsonArray = new JSONArray();
+		for(int i=0;i<paperDetailList.size();i++){
+			PaperDetail paperDetail =(PaperDetail)paperDetailList.get(i);
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("paperId", paperDetail.getPaperId());
+			jsonObject.put("paperName", paperDetail.getPaperName());
+			jsonObject.put("questions", paperDetail.getQuestions());
+			jsonObject.put("OptionA", paperDetail.getOptionA());
+			jsonObject.put("OptionB", paperDetail.getOptionB());
+			jsonObject.put("OptionC", paperDetail.getOptionC());
+			jsonObject.put("OptionD", paperDetail.getOptionD());
+			jsonObject.put("answer", paperDetail.getAnswer());
+			jsonObject.put("score", paperDetail.getScore());
+			jsonArray.add(jsonObject);
+			}
+			int total=paperDetailService.paperDetailCount(paperDetail);
+			result.put("rows", jsonArray);
+			result.put("total", total);
+			ResponseUtil.write(ServletActionContext.getResponse(), result);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 }

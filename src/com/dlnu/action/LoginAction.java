@@ -17,7 +17,7 @@ import org.apache.struts2.convention.annotation.Result;
 import com.opensymphony.xwork2.ActionSupport;
 @Scope("prototype")
 @Namespace("/")
-@Action(value="login",results={@Result(name="success",type="redirect",location="/main.jsp"),@Result(name="error",location="/index.jsp")})
+@Action(value="login",results={@Result(name="success",type="redirect",location="/studentMain.jsp"),@Result(name="error",location="/index.jsp")})
 public class LoginAction extends ActionSupport implements ServletRequestAware{
 	/**
 	 * 
@@ -51,7 +51,6 @@ public class LoginAction extends ActionSupport implements ServletRequestAware{
 	
 	public String execute() throws Exception{
 		HttpSession session = request.getSession();
-		System.out.println("aaaaaaaaaaaaa");
 		if(StringUtil.isEmpty(student.getStuNo())||StringUtil.isEmpty(student.getPassword())){
 			error="用户名或密码为空！";
 			return ERROR;

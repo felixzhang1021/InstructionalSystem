@@ -1,0 +1,162 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: #333;
+  background-repeat: repeat-x;
+  background-color: #eeeeee;
+
+}
+#autoHeader {
+	width: auto;
+	background-color: #ffffff;
+}
+
+#header{
+	width: 980px;
+	height: 95px;
+	margin: 0 auto;
+	background-color: #ffffff;
+
+}
+#logo{
+	float: left;
+	width: 280px;
+	height: 95px;
+
+}
+#headBtn{
+	float: right;
+	width: 700px;
+	height: 95px;
+	padding-bottom: 50px;
+}
+#autoNav{
+	width: auto;
+	height: 45px;
+	background: url(../images/autonav.png) repeat-x;
+}
+
+#slider{
+	height: 255px;
+	border-top: 1px solid rgba(255, 255, 255, .8);
+	background: url(../images/twitter.jpg) no-repeat center 0;
+	margin-bottom: 30px;
+	z-index:1;
+}
+#containerBg{
+	display:block;
+	margin:0 auto;
+	margin-top:10px;
+}
+#container {
+	width: 980px;
+	height: 450px;
+	margin: 0 auto;
+	padding-top: 20px;
+	background-color: #FFFFFF;
+	border-left: 1px solid #e5e5e5;
+	border-right: 1px solid #e5e5e5;
+	padding-bottom: 20px;
+}
+
+#c11 {
+	width: 300px;
+	height: 160px;
+	float: left;
+
+	margin-left: 20px;
+	background-color: #FFFFFF;
+}
+#c12 {
+	width: 300px;
+	height: 160px;
+	float: left;
+
+	margin-left: 20px;
+	background-color: #FFFFFF;
+}
+#c13 {
+	width: 300px;
+	height: 160px;
+	float: left;
+	margin-right: 20px;
+	margin-left: 20px;
+	background-color: #FFFFFF;
+}
+.newsBlockNav {
+  width: 299px;
+  border-right: 1px solid #eeeeee;
+  height: 30px;
+  position: relative;
+  background: url(../images/containerbg.gif) no-repeat;
+}
+
+.newsBlockNav li a {
+  display: block;
+  width: 88px;
+  height: 30px;
+  float: left;
+  text-decoration: none;
+  text-align: center;
+  color: #ffffff;
+  font-weight: bold;
+  background: url(../images/columenav.png) no-repeat;
+}
+.moreaa {
+display: block;
+width: 47px;
+height: 16px;
+position: absolute;
+top: 6px;
+background: url(../images/more.gif) no-repeat;
+left: 240px;
+text-indent: -9999px;
+}
+#c21 {
+	width: 300px;
+	height: 160px;
+	float: left;
+
+	margin-left: 20px;
+	background-color: #FFFFFF;
+}
+#c22 {
+	width: 300px;
+	height: 160px;
+	float: left;
+
+	margin-left: 20px;
+	background-color: #FFFFFF;
+}
+#c23 {
+	width: 300px;
+	height: 160px;
+	float: left;
+	margin-right: 20px;
+	margin-left: 20px;
+	background-color: #FFFFFF;
+}
+#bottom {
+width: 100%;
+height: 82px;
+bottom: 0;
+padding-top: 10px;
+background-image: url(../images/autoNav.jpg);
+background-repeat: repeat-x;
+}
+#containerBt {
+display: block;
+width: 980px;
+height: 49px;
+margin: 0 auto;
+}
+#firstcolumn{
+	border-bottom: 3px #eee solid;
+	height: 165px;
+}
+#secondcolumn{
+	border-bottom: 3px #eee solid;
+	height: 165px;
+}

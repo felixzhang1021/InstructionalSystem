@@ -144,8 +144,8 @@
 		</select>
 		&nbsp;出生日期：&nbsp;<input class="easyui-datebox" name="bStuBirthday" id="bStuBirthday" editable="false" size="10"/>-><input class="easyui-datebox" name="eStuBirthday" id="eStuBirthday" editable="false" size="10"/>
 		    
-		<a href="javascript:searchStudent()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a></div>
-	</div> -->
+		<a href="javascript:searchStudent()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a></div>-->
+	</div> 
 	
 	<div id="dlg" class="easyui-dialog" style="width: 570px;height: 350px;padding: 10px 20px"
 		closed="true" buttons="#dlg-buttons">

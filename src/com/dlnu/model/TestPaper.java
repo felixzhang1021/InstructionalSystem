@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name="testpaper")
 public class TestPaper {
-	private int paperId;
+	private int paperId=-1;
 	private String paperName;
 	private Date startTime;
 	private int durationTime;

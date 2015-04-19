@@ -24,7 +24,7 @@ public class StudentDaoImpl implements StudentDao{
 		Student resultStu = null;
 		Session session = this.getSession();
 		System.out.println(student.getPassword()+"studentDao");
-		Query query=session.createQuery("from Student s where s.stuId=? and s.password=?");
+		Query query=session.createQuery("from Student s where s.stuNo=? and s.password=?");
 		query.setString(0, student.getStuNo());
 		query.setString(1, student.getPassword());
 		@SuppressWarnings("unchecked")

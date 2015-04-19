@@ -21,12 +21,12 @@
 		}
 		var strIds=[];
 		for(var i=0;i<selectedRows.length;i++){
-			strIds.push(selectedRows[i].stuId);
+			strIds.push(selectedRows[i].paperId);
 		}
 		var ids=strIds.join(",");
 		$.messager.confirm("系统提示","您确认要删掉这<font color=red>"+selectedRows.length+"</font>条数据吗？",function(r){
 			if(r){
-				$.post("Paper!delete",{delIds:ids},function(result){
+				$.post("testpaper!delete",{delIds:ids},function(result){
 					if(result.success){
 						$.messager.alert("系统提示","您已成功删除<font color=red>"+result.delNums+"</font>条数据！");
 						$("#dg").datagrid("reload");
@@ -38,6 +38,26 @@
 		});
 	}
 
+	function showPaper(){
+			var selectedRows=$("#dg").datagrid('getSelections');
+		if(selectedRows.length!=1){
+			$.messager.alert("系统提示","请选择一条要编辑的数据！");
+			return;
+		}
+		var row=selectedRows[0];
+		$("#slg").dialog("open").dialog("setTitle","试卷信息");
+		url="testpaper!show?paperId="+row.paperId;
+	//	var row=selectedRows[0];
+		///$("#dlg").dialog("open").dialog("setTitle","编辑试卷信息");
+		$("#questions").val(row.questions);
+		$("#OptionA").val(row.OptionA);
+		$("#OptionB").val(row.OptionB);
+		$("#OptionC").val(row.OptionC);
+		$("#OptionD").val(row.OptionD);
+		$("#answer").val(row.answer);
+		$("#score").val(row.score);
+		alert("显示"+url);
+	}
 	function searchPaper(){
 		$('#dg').datagrid('load',{
 			paperName:$('#paperName').val(),
@@ -45,21 +65,19 @@
 			durationTime:$('#durationTime').val(),
 			questionCount:$('#questionCount').val(),
 			paperStatus:$('#paperStatus').val(),
-			
 		});
 	}
 	
 	
 	function openPaperAddDialog(){
 		$("#dlg").dialog("open").dialog("setTitle","添加试卷");
-		url="paper!save";
+		url="testpaper!save";
 	}
 	
 	function savePaper(){
 		$("#fm").form("submit",{
 			url:url,
 			onSubmit:function(){
-				
 			},
 			success:function(result){
 				if(result.errorMsg){
@@ -96,13 +114,12 @@
 		}
 		var row=selectedRows[0];
 		$("#dlg").dialog("open").dialog("setTitle","编辑试卷信息");
-		
 		$("#paperName").val(row.paperName);
 		$("#startTime").val(row.startTime);
 		$("#durationTime").val(row.durationTime);
 		$("#questionCount").val(row.questionCount);
 		$("#paperStatus").val(row.paperStatus);
-		url="paper!save?paperId="+row.paperId;
+		url="testpaper!save?paperId="+row.paperId;
 	}
 </script>
 </head>
@@ -138,8 +155,8 @@
 		</select>
 		&nbsp;出生日期：&nbsp;<input class="easyui-datebox" name="bStuBirthday" id="bStuBirthday" editable="false" size="10"/>-><input class="easyui-datebox" name="eStuBirthday" id="eStuBirthday" editable="false" size="10"/>
 		    
-		<a href="javascript:searchStudent()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a></div>
-	</div> -->
+		<a href="javascript:searchStudent()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a></div>-->
+	</div> 
 	
 	<div id="dlg" class="easyui-dialog" style="width: 570px;height: 350px;padding: 10px 20px"
 		closed="true" buttons="#dlg-buttons">
@@ -171,6 +188,31 @@
 	
 	<div id="dlg-buttons">
 		<a href="javascript:savePaper()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+		<a href="javascript:closePaperDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+	</div>
+	<div id="slg" class="easyui-dialog" style="width: 1000px;height: 650px;padding: 10px 20px"
+		closed="true" buttons="#dlg-buttons">
+		<form id="fm" method="post">
+			<table cellspacing="5px;"title="试卷信息" class="easyui-datagrid" fitColumns="true"
+	 pagination="true" rownumbers="true" fit="true" >
+				<thead>
+			<tr>
+				
+				<th field="questionId" width="70" align="center">题号</th>
+				<th field="questions" width="70" align="center">题目</th>
+				<th field="OptionA" width="70" align="center">选项A</th>
+				<th field="OptionB" width="70" align="center">选项B</th>
+				<th field="OptionC" width="70" align="center">选项C</th>
+				<th field="OptionD" width="70" align="center">选项D</th>
+				<th field="answer" width="70" align="center">答案</th>
+				<th field="score" width="70" align="center">分数</th>
+			</tr>
+		</thead>
+			</table>
+		</form>
+	</div>
+		<div id="dlg-buttons">
+		<a href="javascript:savePaper()" class="easyui-linkbutton" iconCls="icon-ok">发布试卷</a>
 		<a href="javascript:closePaperDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
 	</div>
 </body>

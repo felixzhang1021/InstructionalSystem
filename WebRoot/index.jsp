@@ -125,7 +125,7 @@ body {
 			<tr height="10">
 				<td width="40%"></td>
 				<td width="10%" style="color:#FFF; font:10px 微软雅黑">用户名：</td>
-				<td><input type="text" value="${student.stuId }" name="student.stuId" id="stuId"/></td>
+				<td><input type="text" value="${student.stuNo }" name="student.stuNo" id="stuNo"/></td>
 				<td width="30%"></td>
 			</tr>
 			<tr height="10">
