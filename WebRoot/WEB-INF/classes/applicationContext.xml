@@ -46,6 +46,7 @@
 				<value>com.dlnu.model.Teacher</value>
 				<value>com.dlnu.model.Question</value>
 				<value>com.dlnu.model.TestPaper</value>
+				<value>com.dlnu.model.PaperDetail</value>
 			</list>
 		</property>
 	</bean>

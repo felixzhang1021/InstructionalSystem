@@ -52,7 +52,8 @@ public class PaperDaoImpl implements PaperDao{
 
 	public int paperSave(TestPaper paper) throws Exception {
 		Session session=this.getSession();
-		session.merge(paper);
+		TestPaper t = (TestPaper)session.merge(paper);
+		System.out.println("-testpaper-->>"+t.getPaperId());
 		return 1;
 	}
 	

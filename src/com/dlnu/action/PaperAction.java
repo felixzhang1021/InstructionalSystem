@@ -32,6 +32,7 @@ public class PaperAction extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 	@Resource
 	private PaperService paperService;
+	@Resource
 	private PaperDetailService paperDetailService;
 	private TestPaper paper;
 	private PaperDetail paperDetail;
@@ -122,6 +123,7 @@ public class PaperAction extends ActionSupport{
 		paper = new TestPaper();
 		if(paperName!=null){
 			paper.setPaperName(paperName);
+			
 		}
 		try{
 		JSONObject result = new JSONObject();
@@ -135,7 +137,7 @@ public class PaperAction extends ActionSupport{
 			jsonObject.put("startTime", paper.getStartTime());
 			jsonObject.put("durationTime", paper.getDurationTime());
 			jsonObject.put("questionCount", paper.getQuestionCount());
-			jsonObject.put("paperStatus", paper.getPaperStatus());
+     		jsonObject.put("paperStatus", paper.getPaperStatus());
 			jsonArray.add(jsonObject);
 			}
 			int total=paperService.paperCount(paper);
@@ -173,7 +175,7 @@ public class PaperAction extends ActionSupport{
 			saveNums = paperService.paperSave(paper);
 			if(saveNums>0){
 				result.put("success", "true");
-				
+				System.out.println(paper.getPaperId()+"@@@@@@@@@@@@@@");
 			}else{
 				result.put("success", "true");
 				result.put("errorMsg", "±£¥Ê ß∞‹");
@@ -185,35 +187,39 @@ public class PaperAction extends ActionSupport{
 			return null;
 	}
 	public String show() throws Exception{
-		PageBean pageBean = new PageBean(Integer.parseInt(page), Integer.parseInt(rows));
+		//PageBean pageBean = new PageBean(Integer.parseInt(page), Integer.parseInt(rows));
 		paperDetail = new PaperDetail();
+		
 		if(paperId!=null){
-			System.out.println("$#$#$#$#$#$#$#$#$#$#$#$");
 			paperDetail.setPaperId(Integer.parseInt(paperId));
 		}
-		System.out.println("$#$#$#$#$#$#$#$#$#$#$#$"+paperDetail.getPaperId());
 		try{
 		JSONObject result = new JSONObject();
-		List<PaperDetail> paperDetailList=paperDetailService.paperDetailList(pageBean, paperDetail);
+		List<PaperDetail> paperDetailList=paperDetailService.paperDetailList(paperDetail);
 		JSONArray jsonArray = new JSONArray();
 		for(int i=0;i<paperDetailList.size();i++){
+			System.out.println(paperDetailList.get(i).getPaperName());
 			PaperDetail paperDetail =(PaperDetail)paperDetailList.get(i);
 			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("numberId", (i+1));
 			jsonObject.put("paperId", paperDetail.getPaperId());
+			jsonObject.put("questionId", paperDetail.getQuestionId());
 			jsonObject.put("paperName", paperDetail.getPaperName());
 			jsonObject.put("questions", paperDetail.getQuestions());
-			jsonObject.put("OptionA", paperDetail.getOptionA());
-			jsonObject.put("OptionB", paperDetail.getOptionB());
-			jsonObject.put("OptionC", paperDetail.getOptionC());
-			jsonObject.put("OptionD", paperDetail.getOptionD());
+			jsonObject.put("optionA", paperDetail.getOptionA());
+			jsonObject.put("optionB", paperDetail.getOptionB());
+			jsonObject.put("optionC", paperDetail.getOptionC());
+			jsonObject.put("optionD", paperDetail.getOptionD());
 			jsonObject.put("answer", paperDetail.getAnswer());
 			jsonObject.put("score", paperDetail.getScore());
 			jsonArray.add(jsonObject);
 			}
 			int total=paperDetailService.paperDetailCount(paperDetail);
+			//result.put("total", total);
 			result.put("rows", jsonArray);
-			result.put("total", total);
-			ResponseUtil.write(ServletActionContext.getResponse(), result);
+			
+			System.out.println(result);
+			ResponseUtil.write(ServletActionContext.getResponse(), jsonArray);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

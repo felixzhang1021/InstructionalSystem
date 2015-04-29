@@ -19,33 +19,34 @@ import com.dlnu.util.StringUtil;
 @Repository
 public class DetailDaoImpl implements DetailDao{
 	private SessionFactory sessionFactory;
-	public List<PaperDetail> paperDetailList(PageBean pageBean,
+	public List<PaperDetail> paperDetailList(
 			PaperDetail paperDetail) throws Exception {
+		System.out.println("$#$#$#$#$#$#$#$#$#$#$#$DetailDaoImpl");
 		List<PaperDetail> paperDetailList=null;
 		Session session = this.getSession();
-		Query query = session.createQuery("from TestPaper t, Question q, PaperDetail p where t.paperId=p.paperId and q.questionId = p.questionId and p.paperId=?");
+		Query query = session.createQuery("from PaperDetail p where paperId=?");
 		query.setInteger(0, paperDetail.getPaperId());
-		if(pageBean!=null){
-			query.setFirstResult(pageBean.getStart());
-			query.setMaxResults(pageBean.getRows());
-		}
 		paperDetailList=(List<PaperDetail>)query.list();
+		System.out.println("++     "+paperDetailList.get(0).getDetailId());
 		return paperDetailList;
 	}
 
 	public int paperDetailCount(PaperDetail paperDetail) throws Exception {
-		StringBuffer sb = new StringBuffer("select count(*) as total from paperdetail p where 1=1");
+		StringBuffer sb = new StringBuffer("select count(*) as total from paperdetail p where 1=1 ");
 		if(paperDetail.getPaperId()!=-1){
 			sb.append("and p.paperId = '"+paperDetail.getPaperId()+"'");
 		}
 		Session session = this.getSession();
 		Query query = session.createSQLQuery(sb.toString());
+		System.out.println("*&*&*    "+((BigInteger)query.uniqueResult()).intValue());
 		return ((BigInteger)query.uniqueResult()).intValue();
 	}
 
 	public int paperDetailSave(PaperDetail paperDetail) throws Exception {
 		Session session=this.getSession();
-		session.merge(paperDetail);
+		System.out.println("DetailSave");
+		PaperDetail p = (PaperDetail)session.merge(paperDetail);
+		System.out.println("--->>"+p.getPaperId());
 		return 1;
 	}
 	@Resource

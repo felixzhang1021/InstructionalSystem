@@ -47,16 +47,26 @@
 		var row=selectedRows[0];
 		$("#slg").dialog("open").dialog("setTitle","试卷信息");
 		url="testpaper!show?paperId="+row.paperId;
-	//	var row=selectedRows[0];
-		///$("#dlg").dialog("open").dialog("setTitle","编辑试卷信息");
-		$("#questions").val(row.questions);
-		$("#OptionA").val(row.OptionA);
-		$("#OptionB").val(row.OptionB);
-		$("#OptionC").val(row.OptionC);
-		$("#OptionD").val(row.OptionD);
-		$("#answer").val(row.answer);
-		$("#score").val(row.score);
-		alert("显示"+url);
+		$("#fm2").form("submit",{
+			url:url,
+			dataType: "json",
+			
+			onSubmit:function(){
+			},
+			success:function(result){
+			var dataArray = eval(result);
+			var tableStr = "<table >";
+  			tableStr = tableStr + "<thead><td>题号</td><td>题目</td><td>选项A</td><td>选项B</td><td>选项C</td><td>选项D</td><td>答案</td><td>分值</td></thead>";
+  			var len = dataArray.length;
+  			for(var i=0 ;i<len ; i++){
+  				tableStr = tableStr + "<tr><td>"+ dataArray[i].numberId +"</td>"+"<td>"+dataArray[i].questions + "</td>"+"<td>"+dataArray[i].optionA +"</td>"+"<td>"+dataArray[i].optionB +"</td>"+"<td>"+dataArray[i].optionC +"</td>"+"<td>"+dataArray[i].optionD +"</td>"+"<td>"+dataArray[i].answer+"</td>"+"<td>"+dataArray[i].score +"</td></tr>";
+  			}
+  			tableStr = tableStr + "</table>";
+  			//将动态生成的table添加的事先隐藏的div中.
+  			$("#slg").html(tableStr);  
+			 
+			}
+		});
 	}
 	function searchPaper(){
 		$('#dg').datagrid('load',{
@@ -162,6 +172,7 @@
 		closed="true" buttons="#dlg-buttons">
 		<form id="fm" method="post">
 			<table cellspacing="5px;">
+			
 				<tr>
 					<td>试卷名称：</td>
 					<td><input type="text" name="paper.paperName" id="paperName" class="easyui-validatebox" required="true"/></td>
@@ -182,6 +193,7 @@
 					<td>试卷状态：</td>
 					<td><input type="text" name="paper.paperStatus" id="paperStatus" class="easyui-validatebox" required="true"/></td>
 				</tr>
+				
 			</table>
 		</form>
 	</div>
@@ -192,26 +204,11 @@
 	</div>
 	<div id="slg" class="easyui-dialog" style="width: 1000px;height: 650px;padding: 10px 20px"
 		closed="true" buttons="#dlg-buttons">
-		<form id="fm" method="post">
-			<table cellspacing="5px;"title="试卷信息" class="easyui-datagrid" fitColumns="true"
-	 pagination="true" rownumbers="true" fit="true" >
-				<thead>
-			<tr>
-				
-				<th field="questionId" width="70" align="center">题号</th>
-				<th field="questions" width="70" align="center">题目</th>
-				<th field="OptionA" width="70" align="center">选项A</th>
-				<th field="OptionB" width="70" align="center">选项B</th>
-				<th field="OptionC" width="70" align="center">选项C</th>
-				<th field="OptionD" width="70" align="center">选项D</th>
-				<th field="answer" width="70" align="center">答案</th>
-				<th field="score" width="70" align="center">分数</th>
-			</tr>
-		</thead>
-			</table>
+		<form id="fm2" method="post">
+			
 		</form>
 	</div>
-		<div id="dlg-buttons">
+	<div id="dlg-buttons">
 		<a href="javascript:savePaper()" class="easyui-linkbutton" iconCls="icon-ok">发布试卷</a>
 		<a href="javascript:closePaperDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
 	</div>

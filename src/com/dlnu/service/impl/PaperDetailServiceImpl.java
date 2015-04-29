@@ -15,17 +15,17 @@ public class PaperDetailServiceImpl implements PaperDetailService{
 	@Resource
 	private DetailDao paperDetailDao;
 	
-	public List<PaperDetail> paperDetailList(PageBean pageBean,
+	public List<PaperDetail> paperDetailList(
 			PaperDetail paperDetail) throws Exception {
-		return this.paperDetailList(pageBean, paperDetail);
+		return paperDetailDao.paperDetailList(paperDetail);
 	}
 
 	public int paperDetailCount(PaperDetail paperDetail) throws Exception {
-		return this.paperDetailCount(paperDetail);
+		return paperDetailDao.paperDetailCount(paperDetail);
 	}
 
 	public int paperDetailSave(PaperDetail paperDetail) throws Exception {
-		return this.paperDetailSave(paperDetail);
+		return paperDetailDao.paperDetailSave(paperDetail);
 	}
 
 }

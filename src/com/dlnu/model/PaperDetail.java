@@ -15,48 +15,56 @@ public class PaperDetail {
 	private int questionId;
 	private String paperName;
 	private String questions;
+	@Column(name="paperName")
 	public String getPaperName() {
 		return paperName;
 	}
 	public void setPaperName(String paperName) {
 		this.paperName = paperName;
 	}
+	@Column(name="question")
 	public String getQuestions() {
 		return questions;
 	}
 	public void setQuestions(String questions) {
 		this.questions = questions;
 	}
+	@Column(name="optionA")
 	public String getOptionA() {
 		return optionA;
 	}
 	public void setOptionA(String optionA) {
 		this.optionA = optionA;
 	}
+	@Column(name="optionB")
 	public String getOptionB() {
 		return optionB;
 	}
 	public void setOptionB(String optionB) {
 		this.optionB = optionB;
 	}
+	@Column(name="optionC")
 	public String getOptionC() {
 		return optionC;
 	}
 	public void setOptionC(String optionC) {
 		this.optionC = optionC;
 	}
+	@Column(name="optionD")
 	public String getOptionD() {
 		return optionD;
 	}
 	public void setOptionD(String optionD) {
 		this.optionD = optionD;
 	}
+	@Column(name="answer")
 	public String getAnswer() {
 		return answer;
 	}
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
+	@Column(name="score")
 	public int getScore() {
 		return score;
 	}
