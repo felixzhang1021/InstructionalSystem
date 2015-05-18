@@ -12,7 +12,7 @@
 <script type="text/javascript" src="jquery-easyui-1.4.2/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
 	var url;
-	
+	var paperReleaseId;
 	function deletePaper(){
 		var selectedRows=$("#dg").datagrid('getSelections');
 		if(selectedRows.length==0){
@@ -47,6 +47,7 @@
 		var row=selectedRows[0];
 		$("#slg").dialog("open").dialog("setTitle","试卷信息");
 		url="testpaper!show?paperId="+row.paperId;
+		paperReleaseId = row.paperId;
 		$("#fm2").form("submit",{
 			url:url,
 			dataType: "json",
@@ -102,7 +103,27 @@
 			}
 		});
 	}
-	
+	function releasePaper(){
+		url="testpaper!release?paperId="+paperReleaseId;
+		$("#fm").form("submit",{
+			url:url,
+			onSubmit:function(){
+			},
+			success:function(result){
+			alert(result.errorMsg);
+				if(result.errorMsg){
+					$.messager.alert("系统提示",result.errorMsg);
+					return;
+				}else{
+				alert(url);
+					$.messager.alert("系统提示","发布成功");
+					resetValue();
+					$("#dlg").dialog("close");
+					$("#dg").datagrid("reload");
+				}
+			}
+		});
+	}
 	function resetValue(){
 		$("#paperName").val("");
 		$("#startTime").val("");
@@ -209,7 +230,7 @@
 		</form>
 	</div>
 	<div id="dlg-buttons">
-		<a href="javascript:savePaper()" class="easyui-linkbutton" iconCls="icon-ok">发布试卷</a>
+		<a href="javascript:releasePaper()" class="easyui-linkbutton" iconCls="icon-ok">发布试卷</a>
 		<a href="javascript:closePaperDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
 	</div>
 </body>

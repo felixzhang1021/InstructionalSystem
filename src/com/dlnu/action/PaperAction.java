@@ -175,10 +175,31 @@ public class PaperAction extends ActionSupport{
 			saveNums = paperService.paperSave(paper);
 			if(saveNums>0){
 				result.put("success", "true");
-				System.out.println(paper.getPaperId()+"@@@@@@@@@@@@@@");
 			}else{
 				result.put("success", "true");
 				result.put("errorMsg", "±£´æÊ§°Ü");
+			}
+			ResponseUtil.write(ServletActionContext.getResponse(), result);
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+		return null;
+	}
+	
+	public String release()throws Exception{
+		if(StringUtil.isNotEmpty(paperId)){
+			paper.setPaperId(Integer.parseInt(paperId));
+		}
+		try{
+			int saveNums=0;
+			JSONObject result= new JSONObject();
+			System.out.println("-releasePaperId-->>"+paper.getPaperId());
+			saveNums = paperService.paperReleaseSave(paper);
+			if(saveNums>0){
+				result.put("success", "true");
+			}else{
+				result.put("success", "true");
+				result.put("errorMsg", "·¢²¼Ê§°Ü");
 			}
 			ResponseUtil.write(ServletActionContext.getResponse(), result);
 	}catch(Exception e){
@@ -217,13 +238,10 @@ public class PaperAction extends ActionSupport{
 			int total=paperDetailService.paperDetailCount(paperDetail);
 			//result.put("total", total);
 			result.put("rows", jsonArray);
-			
-			System.out.println(result);
 			ResponseUtil.write(ServletActionContext.getResponse(), jsonArray);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return null;
-		
 	}
 }

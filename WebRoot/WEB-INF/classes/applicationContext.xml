@@ -70,6 +70,7 @@
 			<tx:method name="*Delete" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
 			<tx:method name="*Show" propagation="REQUIRED" />
+			<tx:method name="*Release" propagation="REQUIRED" />
 			<tx:method name="get*" read-only="true" />
 			<tx:method name="load*" read-only="true" />
 			<tx:method name="find*" read-only="true" />

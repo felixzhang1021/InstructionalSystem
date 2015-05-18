@@ -31,4 +31,9 @@ public class PaperServiceImpl implements PaperService{
 		return paperDao.paperSave(paper);
 	}
 
+	public int paperReleaseSave(TestPaper paper) throws Exception {
+		// TODO Auto-generated method stub
+		return paperDao.paperReleaseSave(paper);
+	}
+
 }

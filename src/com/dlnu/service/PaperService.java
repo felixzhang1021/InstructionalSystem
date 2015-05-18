@@ -13,4 +13,6 @@ public interface PaperService {
 	public int paperDelete(String delIds)throws Exception;
 	
 	public int paperSave(TestPaper paper)throws Exception;
+	
+	public int paperReleaseSave(TestPaper paper)throws Exception;
 }

@@ -60,6 +60,16 @@ body {
 	border-right: 1px solid #e5e5e5;
 	padding-bottom: 20px;
 }
+#containerTest {
+	width: 980px;
+	height: 700px;
+	margin: 0 auto;
+	padding-top: 20px;
+	background-color: #FFFFFF;
+	border-left: 1px solid #e5e5e5;
+	border-right: 1px solid #e5e5e5;
+	padding-bottom: 20px;
+}
 
 #c11 {
 	width: 300px;
@@ -159,4 +169,43 @@ margin: 0 auto;
 #secondcolumn{
 	border-bottom: 3px #eee solid;
 	height: 165px;
+}
+#ssList {
+display:block;
+margin-bottom:20px;
+}
+
+#block1Lb{
+width:180px;
+height:auto;
+float:left;
+display:inline;
+margin-left:20px;
+background-color:#5599FF;
+}
+
+#sliderSearch{
+width:218px;
+height:32px;
+margin-bottom:10px;
+border:1px solid #f1f1f1;
+
+}
+
+
+#ssbox{
+width:180px;
+height:42px;
+border-top:4px solid #1491da;
+border-bottom:1px solid #1491da;
+}
+
+#ssbox h3{
+font-size:16px;
+line-height:42px;
+padding-left:15px;
+}
+#autotest{
+	margin-left:20px;
+	margin-top:20px;
 }

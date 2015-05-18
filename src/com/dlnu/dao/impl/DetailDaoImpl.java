@@ -21,13 +21,11 @@ public class DetailDaoImpl implements DetailDao{
 	private SessionFactory sessionFactory;
 	public List<PaperDetail> paperDetailList(
 			PaperDetail paperDetail) throws Exception {
-		System.out.println("$#$#$#$#$#$#$#$#$#$#$#$DetailDaoImpl");
 		List<PaperDetail> paperDetailList=null;
 		Session session = this.getSession();
 		Query query = session.createQuery("from PaperDetail p where paperId=?");
 		query.setInteger(0, paperDetail.getPaperId());
 		paperDetailList=(List<PaperDetail>)query.list();
-		System.out.println("++     "+paperDetailList.get(0).getDetailId());
 		return paperDetailList;
 	}
 
@@ -46,9 +44,9 @@ public class DetailDaoImpl implements DetailDao{
 		Session session=this.getSession();
 		System.out.println("DetailSave");
 		PaperDetail p = (PaperDetail)session.merge(paperDetail);
-		System.out.println("--->>"+p.getPaperId());
 		return 1;
 	}
+
 	@Resource
 	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory){

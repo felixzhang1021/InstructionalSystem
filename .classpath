@@ -64,5 +64,9 @@
 	<classpathentry kind="lib" path="F:/资料/ssh常用包/lib/struts2-core-2.2.3.1.jar"/>
 	<classpathentry kind="lib" path="F:/资料/ssh常用包/lib/struts2-spring-plugin-2.2.3.1.jar"/>
 	<classpathentry kind="lib" path="F:/资料/ssh常用包/lib/xwork-core-2.2.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/gson-1.6.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/gson-1.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/json-taglib-0.4.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json-taglib-0.4.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
