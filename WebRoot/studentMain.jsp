@@ -58,7 +58,7 @@ ga('send', 'pageview');
             <li class="pure-menu-item"><a href="#" class="pure-menu-link">实验指导</a></li>
             <li class="pure-menu-item"><a href="#" class="pure-menu-link">教学录像</a></li>
             <li class="pure-menu-item"><a href="#" class="pure-menu-link">教学研究</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">在线答疑</a></li>
+            <li class="pure-menu-item"><a href="messageshow" class="pure-menu-link">在线答疑</a></li>
             <li class="pure-menu-item"><a href="testMain.jsp" class="pure-menu-link">在线测试</a></li>
         </ul>
     </div>
