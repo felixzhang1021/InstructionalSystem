@@ -14,16 +14,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-41480445-1', 'purecss.io');
-ga('send', 'pageview');
-</script>
-
+			ga('create', 'UA-41480445-1', 'purecss.io');
+			ga('send', 'pageview');
+		</script>
+	<!-- 	<script language=Javascript> 
+			var now=new Date(); 
+			var comdate =document.getElementById('comDate');
+			var date = 1900+now.getYear()+"-"+(now.getMonth()+1)+"-"+now.getDate()+" "+now.getHours()+":"+now.getMinutes()+":"+now.getSeconds();
+			alert(date);
+			comdate.value = 1;
+		</script>  -->
     <title>主页</title>
             <%
 	// 权限验证
@@ -71,32 +77,29 @@ ga('send', 'pageview');
 
   </div>
     <div id="containerTest">
+    <form action="showcomment!save" method="post">
   <%--Gson  g = new Gson();--%>
   <% 
   	JSONArray obj=(JSONArray)session.getAttribute("json");
   	%>
-	<form action="messageshow!save" method="post">
-  	<div style="width:960px;margin:10px">
-  		<div style="background:#87CEFA; height:30px;padding-top: 5px;padding-left: 5px;">发表留言</div>
-  		<div><textarea style="width:955px;height:150px" type="text" name="content"></textarea></div>
-		<div style="text-align:right; height:30px">
-			<input type="text" value="${currentStu.stuName }" name="stuName" id="stuName"style="display:none;"/>
-			<input type="reset" value="重置"/>
-			<input type="submit" value="留言"/>
-		</div>
+  	<%JSONObject messageJo = (JSONObject)obj.get(0); %>
+  	<div style="border:1px solid #000;width:960px;margin:10px">
+  		<div style="background:#87CEFA;height:30px">
+  			<div style="float:left; width:460px;background:#87CEFA;padding-top: 5px;padding-left: 5px;">留言人：<%=messageJo.get("stuName") %></div> 
+  			<div style="float:right; width:480px;background:#87CEFA;padding-top: 5px;padding-left: 5px;">留言时间：<%=messageJo.get("messageDate") %></div>
+  		</div>
+  		<div style="height:auto !important; padding:5px;"><%=messageJo.get("content") %></div>
   	</div>
-  	</form>
   	<%
   		if(obj.size()>=1){
-  			for (int i=0;i<obj.size();i++){
+  			for (int i=1;i<obj.size();i++){
   				JSONObject jo = (JSONObject) obj.get(i);%>
   				  	<div style="border:1px dashed #000;width:960px;margin:10px">
   						<div style="background:#B0E0E6; height:30px">
-  							<div style="float:left; width:300px;background:#B0E0E6;padding-top: 5px;padding-left: 5px;">留言人：<%=jo.get("stuName") %></div> 
-  							<div style="float:left; width:300px;background:#B0E0E6;padding-top: 5px;padding-left: 5px;">留言时间：<%=jo.get("messageDate") %></div>
-  							<div style="float:left; width:300px;background:#B0E0E6;padding-top: 5px;padding-left: 5px;"><a href="showcomment?messageId=<%=jo.get("messageId")%>">评论</a></div>
+  							<div style="float:left; width:460px;background:#B0E0E6;padding-top: 5px;padding-left: 5px;">评论人：<%=jo.get("comPerson") %></div> 
+  							<div style="float:right; width:480px;background:#B0E0E6;padding-top: 5px;padding-left: 5px;">评论时间：<%=jo.get("comDate") %></div>
   						</div>
-  						<div style="height:auto !important; padding:5px"><%=jo.get("content") %></div>
+  						<div style="height:auto !important; padding:5px;"><%=jo.get("comContent") %></div>
   					</div>
   					<%
   				}
@@ -108,8 +111,19 @@ ga('send', 'pageview');
   		}
   		 %>
 
+  	<div style="width:960px;margin:10px">
+  		<div style="background:#B0E0E6; height:30px;padding-top: 5px;padding-left: 5px;">发表评论</div>
+  		<div><textarea rows="3" cols="30" style="width:955px;height:150px" type="textarea" name="comcontent" ></textarea></div>
+		<div style="text-align:right; height:30px">
+			<input type="text" value="<%=messageJo.get("messageId") %>" name="messageId" id="messageId"style="display:none;"/>
+			<input type="text" value="${currentStu.stuName }" name="comperson" id="comPerson"style="display:none;"/>
+			<!-- <input type="text" value="comDate" name="comment.comDate" id="comDate"/> -->
+			<input type="reset" value="重置"/>
+			<input type="submit" value="评论"/>
+		</div>
+  	</div>
 	<br>
-  
+  	</form>
 		
     </div>
     <img id="containerBt" src="./images/bt.gif">

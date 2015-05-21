@@ -1,6 +1,7 @@
 package com.dlnu.action;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -102,7 +103,6 @@ public class MessageShowAction extends ActionSupport implements ServletRequestAw
 			jsonObject.put("messageId", messageList.getMessageId());
 			jsonObject.put("content", messageList.getContent());
 			jsonObject.put("stuName", messageList.getStuName());
-			jsonObject.put("comCount", messageList.getComCount());
 			jsonObject.put("messageDate", formatter.format(messageList.getMessageDate()));
 			System.out.println("-date-->>"+formatter.format(messageList.getMessageDate()));
 			jsonArray.add(jsonObject);
@@ -110,10 +110,20 @@ public class MessageShowAction extends ActionSupport implements ServletRequestAw
 		session.setAttribute("json", jsonArray);
 		return SUCCESS;
 	}
-	public String save(){
-		Message message = null;
+	public String save() throws ParseException{
+		HttpSession session = request.getSession();
+		SimpleDateFormat sm=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date currentDate = new Date();
+		String dateString = sm.format(currentDate);
+		Date currentTime_2 = sm.parse(dateString);
+		Message messageTemp = new Message();
+		
+		messageTemp.setContent(content);
+		messageTemp.setMessageDate(currentTime_2);
+		messageTemp.setStuName(stuName);
+		System.out.println("--content--->"+content);
 		try {
-			if(messageService.save(message)==1){
+			if(messageService.save(messageTemp)==1){
 				return SUCCESS;
 			}else{
 				error = "¡Ù—‘ ß∞‹";

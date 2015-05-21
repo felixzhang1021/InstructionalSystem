@@ -62,7 +62,7 @@ body {
 }
 #containerTest {
 	width: 980px;
-	height: 700px;
+	height:auto !important;
 	margin: 0 auto;
 	padding-top: 20px;
 	background-color: #FFFFFF;

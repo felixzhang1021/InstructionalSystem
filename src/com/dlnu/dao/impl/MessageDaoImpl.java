@@ -30,7 +30,7 @@ public class MessageDaoImpl implements MessageDao{
 		// TODO Auto-generated method stub
 		List<Message> messageList=null;
 		Session session = this.getSession();
-		Query query = session.createQuery("select * from message where messageid=?");
+		Query query=session.createQuery("from Message m where m.messageId=?");
 		query.setInteger(0, messageId);
 		messageList=(List<Message>)query.list();
 		return messageList;
@@ -39,7 +39,8 @@ public class MessageDaoImpl implements MessageDao{
 	public int save(Message message) throws Exception {
 		// TODO Auto-generated method stub
 		Session session = this.getSession();
-		session.merge(message);
+		session.save(message);
+		session.flush();
 		return 1;
 	}
 	@Resource

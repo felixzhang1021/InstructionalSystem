@@ -28,7 +28,7 @@ public class Comment {
 	public void setComId(int comId) {
 		this.comId = comId;
 	}
-	@Column(name="messageid")
+	@Column(name="messageId")
 	public int getMessageId() {
 		return messageId;
 	}

@@ -16,6 +16,7 @@ public class CommentServiceImpl implements CommentService{
 	private CommentDao commentDao;
 	public List<Comment> showCommentList(int messageId) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("--commentService-->>"+messageId);
 		return commentDao.showCommentList(messageId);
 	}
 	public int save(Comment comment) throws Exception {

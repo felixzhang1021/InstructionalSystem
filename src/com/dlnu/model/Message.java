@@ -15,7 +15,6 @@ public class Message {
 	private int messageId;
 	private String stuName;
 	private String content;
-	private int comCount;
 	private Date messageDate;
 	@Id
 	@GenericGenerator(name="generator", strategy="increment")
@@ -41,13 +40,6 @@ public class Message {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	@Column(name="comcount")
-	public int getComCount() {
-		return comCount;
-	}
-	public void setComCount(int comCount) {
-		this.comCount = comCount;
-	}
 	@Column(name="messagedate")
 	public Date getMessageDate() {
 		return messageDate;
@@ -55,12 +47,11 @@ public class Message {
 	public void setMessageDate(Date messageDate) {
 		this.messageDate = messageDate;
 	}
-	public Message(String stuName, String content, int comCount,
+	public Message(String stuName, String content, 
 			Date messageDate) {
 		super();
 		this.stuName = stuName;
 		this.content = content;
-		this.comCount = comCount;
 		this.messageDate = messageDate;
 	}
 	public Message() {

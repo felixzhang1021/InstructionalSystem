@@ -1,7 +1,6 @@
 package com.dlnu.action;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -27,8 +26,8 @@ import com.opensymphony.xwork2.ActionSupport;
 
 @Scope("prototype")
 @Namespace("/")
-@Action(value="showcomment",results={@Result(name="success",type="redirect",location="/comment.jsp")})
-public class CommentShowAction extends ActionSupport implements ServletRequestAware{
+@Action(value="submitcomment",results={@Result(name="success",type="redirect",location="/comment.jsp")})
+public class SubmitCommentAction extends ActionSupport implements ServletRequestAware{
 
 	/**
 	 * 
@@ -110,56 +109,12 @@ public class CommentShowAction extends ActionSupport implements ServletRequestAw
 		this.comDate = comDate;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		System.out.println("--messageId-->>"+messageId);
-		List<Comment> commentShow = commentService.showCommentList(messageId);
-		List<Message> messageById = messageService.showMessageById(messageId);
-		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		JSONArray jsonArray = new JSONArray();
-		
-		Message messageByIdList = (Message)messageById.get(0);
-		JSONObject messageJsonObject = new JSONObject();
-		messageJsonObject.put("messageId", messageByIdList.getMessageId());
-		messageJsonObject.put("content", messageByIdList.getContent());
-		messageJsonObject.put("stuName", messageByIdList.getStuName());
-		messageJsonObject.put("messageDate", formatter.format(messageByIdList.getMessageDate()));
-		jsonArray.add(messageJsonObject);
-		
-		for(int i=0;i<commentShow.size();i++){
-			Comment commentList =(Comment)commentShow.get(i);
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("comId", commentList.getComId());
-			jsonObject.put("messageId", commentList.getMessageId());
-			jsonObject.put("comContent", commentList.getComcontent());
-			jsonObject.put("comPerson", commentList.getComperson());
-			jsonObject.put("comDate", formatter.format(commentList.getComDate()));
-			jsonArray.add(jsonObject);
-			}
-
-		session.setAttribute("json", jsonArray);
-		System.out.println("--jsonArray-->>"+jsonArray);
-		return SUCCESS;
-	}
-	public String save() throws ParseException{
-		HttpSession session = request.getSession();
-		SimpleDateFormat sm=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date currentDate = new Date();
-		String dateString = sm.format(currentDate);
-		Date currentTime_2 = sm.parse(dateString);
-
-
-		Comment commentTemp = new Comment();
-		commentTemp.setComcontent(comcontent);
-		commentTemp.setComperson(comperson);
-		commentTemp.setMessageId(messageId);
-		commentTemp.setComDate(currentTime_2);
-		
+		System.out.println("--comment-->>"+comment);
 		try {
-			if(commentService.save(commentTemp)==1){
+			if(commentService.save(comment)==1){
 				return SUCCESS;
 			}
 			else{
@@ -172,6 +127,7 @@ public class CommentShowAction extends ActionSupport implements ServletRequestAw
 		}
 		return null;
 	}
+	
 	public void setServletRequest(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		this.request= request;
