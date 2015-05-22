@@ -38,8 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <li><a href="#"><font color="#46A3FF">我的成绩</font></a></li>      
            </br>
            <li><a href="#"><font color="#46A3FF">历次考题</font></a></li>      
-           </br>
-            <li><a href=autocheck><font color="#46A3FF">测试</font></a></li>      
+  
            </br>                      
         <!--/栏目列表-->	
     </ul>

@@ -28,28 +28,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			function check(frm){
        			var allInput = document.getElementsByTagName("input"); //获得所有的input
        			var loopTime = allInput.length; //获得数量
-       			var tempQuestionId;
-       			var tempAnswer;
+       			var tempQuestionId ="";
+       			var tempAnswer="";
     			var countOfChecked=0;
       			for(var i=0;i < loopTime;i++){
        				if(allInput[i].type == "radio")//只对radio进行检查
       	 			if(allInput[i].checked==true){ //如果被选择
-                          tempQuestionId=allInput[i].name;//记录所选的值
-                          tempAnswer=allInput[i].value;
+                          tempQuestionId += allInput[i].name+",";//记录所选的值
+                          tempAnswer += allInput[i].value+",";
+                          
                           data = {'questionId':tempQuestionId,'answer':tempAnswer};
                           countOfChecked++;
                     	}
        				}
+       				alert(tempQuestionId);
+       				alert(tempAnswer);
        			if(countOfChecked==0){//都没选择
+       			
        				alert("您还没有选择执行结果");
-       			}else{      
-       				alert("执行"); 
-        			frm.action="autocheck";
+       			}else{
+     				document.getElementById('questionIdList').value=tempQuestionId;  
+     				document.getElementById('questionAnswerList').value=tempAnswer;
+        			frm.action="autocheck?jsondata=data";
         			document.getElementById('sub').click();  
         		}
     		}
 
+
 	</script>
+	<script type="text/javascript">
+ 	//错误提示信息
+ 		var count=""+'${request.tipCount}'; 
+ 		if(count!=""){ 
+    	alert(count); 
+ 	} 
+    //-->
+</script>
   </head>
   
   <body>
@@ -58,17 +72,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <%--Gson  g = new Gson();--%>
   <% 
   	JSONArray obj=(JSONArray)session.getAttribute("json");
-  	
-  	
   	for (int i=0;i<obj.size();i++){
   		JSONObject jo = (JSONObject) obj.get(i);%>
-   		<%=jo.get("questionNumber") %>.<%=jo.get("questions") %>.</br>
+   		<%=jo.get("questionNumber") %>.<%=jo.get("questions") %></br>
     	<input type="radio" value="A" name="<%=jo.get("questionId")%>">A.&nbsp<%=jo.get("optionA")%> <br>
     	<input type="radio" value="B" name="<%=jo.get("questionId")%>">B.&nbsp<%=jo.get("optionB")%> <br>
     	<input type="radio" value="C" name="<%=jo.get("questionId")%>">C.&nbsp<%=jo.get("optionC")%> <br>
     	<input type="radio" value="D" name="<%=jo.get("questionId")%>">D.&nbsp<%=jo.get("optionD")%></br>
+			<br>
+	<br>
 		<% }%>
 	<br>
+	<br>
+	<input type="text" name="questionIdList" id="questionIdList" style="display:none"/>
+	<input type="text" name="questionAnswerList" id="questionAnswerList" style="display:none"/>
   	<input type="submit" name="submit" value="交卷" onclick="check(autochecksubmit)">
   	<input type="submit" id="sub" style="display:none"/></br>
   	</form>

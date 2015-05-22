@@ -26,9 +26,10 @@ public class AutoTestDaoImpl implements AutoTestDao{
 		Session session=this.getSession();
 		int numSize=50;
 		HashSet<Integer> set = new HashSet<Integer>(); 
-		addNumber(1,1,1,set);
+		addNumber(1,45,20,set);
 		List<Question> autoPaper= new ArrayList<Question>();
-		 for (int j : set) {  
+		System.out.println("--set.size--->>"+set.size());
+		 for (int j : set) {
 			 j=j+1;
 			 Query query=session.createQuery("from Question q where q.questionId=?");
 			 query.setInteger(0, j);

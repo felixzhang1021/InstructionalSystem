@@ -13,9 +13,17 @@ import com.dlnu.service.AutoCheckService;
 public class AutoCheckServiceImpl implements AutoCheckService{
 	@Resource
 	private AutoCheckDao autoCheckDao;
-	public int AutoCheckService(List<Question> questionList) throws Exception {
+
+	public int autoCheckService(String[] questionIdList, String[] answerList)
+			throws Exception {
 		// TODO Auto-generated method stub
-		return autoCheckDao.autoCheck(questionList);
+		return autoCheckDao.autoCheck(questionIdList, answerList);
+	}
+
+	public List<Question> autoCheckErrorService(String[] questionIdList,
+			String[] answerList) throws Exception {
+		// TODO Auto-generated method stub
+		return autoCheckDao.autoCheckError(questionIdList, answerList);
 	}
 	
 }

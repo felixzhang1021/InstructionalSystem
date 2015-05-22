@@ -62,7 +62,7 @@ public class PaperDaoImpl implements PaperDao{
 		System.out.println("-testpaper-->>"+t.getPaperId());
 		int numSize=t.getQuestionCount();
 		HashSet<Integer> set = new HashSet<Integer>(); 
-		addNumber(1,1,1,set);
+		addNumber(1,45,20,set);
 		 for (int j : set) {  
 			 j=j+1;
 			 Query query=session.createQuery("from Question q where q.questionId=?");
