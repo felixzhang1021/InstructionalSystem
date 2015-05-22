@@ -36,4 +36,9 @@ public class PaperServiceImpl implements PaperService{
 		return paperDao.paperReleaseSave(paper);
 	}
 
+	public List<TestPaper> showHistoryPaper() throws Exception {
+		// TODO Auto-generated method stub
+		return paperDao.showHistoryPaper();
+	}
+
 }

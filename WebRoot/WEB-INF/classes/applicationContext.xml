@@ -49,6 +49,7 @@
 				<value>com.dlnu.model.PaperDetail</value>
 				<value>com.dlnu.model.Comment</value>
 				<value>com.dlnu.model.Message</value>
+				<value>com.dlnu.model.Grade</value>
 			</list>
 		</property>
 	</bean>
@@ -69,6 +70,7 @@
 	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="*Save*" propagation="REQUIRED" />
+			<tx:method name="*testCheck*" propagation="REQUIRED" />
 			<tx:method name="*save*" propagation="REQUIRED" />
 			<tx:method name="*Delete" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />

@@ -15,4 +15,6 @@ public interface PaperDao {
 	public int paperSave(TestPaper paper)throws Exception;
 	
 	public int paperReleaseSave(TestPaper paper)throws Exception;
+	
+	public List<TestPaper> showHistoryPaper()throws Exception;
 }

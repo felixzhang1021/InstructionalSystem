@@ -13,7 +13,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <base href="<%=basePath%>">
     <base target="main">
     <title>My JSP 'left.jsp' starting page</title>
-    
+                <%
+	// 权限验证
+	if(session.getAttribute("currentStu")==null){
+		response.sendRedirect("index.jsp");
+		return;
+	}
+%>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -31,13 +37,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
     <ul id="ssList">
        <!--栏目列表--> 
-           <li><a href="#"><font color="#46A3FF">考试通知</font></a></li>
+           <li><a href="studenttest"><font color="#46A3FF">考试通知</font></a></li>
            </br>       
            <li><a href="autotest"><font color="#46A3FF">自主练习</font></a></li>
            </br>      
-           <li><a href="#"><font color="#46A3FF">我的成绩</font></a></li>      
+           <li><a href="studentshowgrade?stuId=${currentStu.stuId}"><font color="#46A3FF">我的成绩</font></a></li>      
            </br>
-           <li><a href="#"><font color="#46A3FF">历次考题</font></a></li>      
+           <li><a href="showHistoryPaper"><font color="#46A3FF">历次考题</font></a></li>      
   
            </br>                      
         <!--/栏目列表-->	

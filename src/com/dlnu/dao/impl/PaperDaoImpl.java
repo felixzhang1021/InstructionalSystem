@@ -81,9 +81,10 @@ public class PaperDaoImpl implements PaperDao{
 		     p.setOptionD(questionList.get(0).getOptionD());
 		     p.setAnswer(questionList.get(0).getAnswer());
 		     p.setScore(questionList.get(0).getScore());
-		     session.save(p);
-		     session.beginTransaction().commit();
+			 session.save(p);
+		     session.flush();
 		 }
+
 		return 1;
 	}
 	
@@ -119,6 +120,14 @@ public class PaperDaoImpl implements PaperDao{
 	
 	public Session getSession(){
 		return sessionFactory.getCurrentSession();
+	}
+
+	public List<TestPaper> showHistoryPaper() throws Exception {
+		// TODO Auto-generated method stub
+		Session session = this.getSession();
+		Query query=session.createQuery("from TestPaper t where t.paperStatus='ÒÑ¿¼'");
+		List<TestPaper> testPaperList=(List<TestPaper>)query.list();
+		return testPaperList;
 	}
 
 }

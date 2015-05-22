@@ -40,7 +40,7 @@
 			},{
 				text:"成绩查询",
 				attributes:{
-					url:"testPaperManage.jsp"
+					url:"teachershowHistoryPaper"
 				}
 			}
 			]

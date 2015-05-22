@@ -56,7 +56,7 @@
 			},
 			success:function(result){
 			var dataArray = eval(result);
-			var tableStr = "<table >";
+			var tableStr = "<table>";
   			tableStr = tableStr + "<thead><td>题号</td><td>题目</td><td>选项A</td><td>选项B</td><td>选项C</td><td>选项D</td><td>答案</td><td>分值</td></thead>";
   			var len = dataArray.length;
   			for(var i=0 ;i<len ; i++){
